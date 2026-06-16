@@ -50,8 +50,6 @@ pip install curl_cffi
 python app.py
 ```
 
-Или двойным кликом по `start.bat`.
-
 ### Настройка GMX
 
 1. Получите API ключ на [capsolver.com](https://capsolver.com)
@@ -91,4 +89,9 @@ darkmail/
 | `delete_message(id)` | `{ok}` | Удалить письмо |
 | `export_message(id, format)` | `{ok, path}` | Сохранить как TXT/HTML |
 
+## Скриншоты
 
+![](1.png)
+![](2.png)
+![](3.png)
+![](4.png)
