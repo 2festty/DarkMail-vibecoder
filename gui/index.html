@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DarkMail</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="theme-dark">
+<div class="layout">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <button class="sidebar-add" id="addBtn" onclick="addAccount()" title="Создать почту">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14"/><path d="M5 12h14"/></svg>
+    </button>
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-list" id="sidebarList"></div>
+  </aside>
+
+  <!-- Main -->
+  <main class="main">
+
+    <!-- Top Bar -->
+    <header class="topbar">
+      <h1 class="app-title">DarkMail</h1>
+      <div class="topbar-nav">
+        <button class="nav-btn active" data-page="home" onclick="switchPage('home')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          <span>Главная</span>
+        </button>
+        <button class="nav-btn" data-page="inbox" onclick="switchPage('inbox')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 16 12 14 15 10 15 8 12 2 12"/><path d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></svg>
+          <span>Входящие</span>
+        </button>
+        <button class="nav-btn" data-page="settings" onclick="switchPage('settings')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          <span>Настройки</span>
+        </button>
+      </div>
+      <div class="topbar-right">
+        <span class="status-text" id="statusText">Готов</span>
+        <span class="status-dot" id="statusDot"></span>
+      </div>
+    </header>
+
+    <!-- ============ PAGE: HOME ============ -->
+    <div class="page active" id="page-home">
+      <div class="home-grid">
+        <!-- Stats -->
+        <div class="card stat-card">
+          <div class="stat-icon stat-icon-purple">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          </div>
+          <div class="stat-body">
+            <span class="stat-value" id="statAccounts">0</span>
+            <span class="stat-label">Аккаунтов</span>
+          </div>
+        </div>
+        <div class="card stat-card">
+          <div class="stat-icon stat-icon-gold">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <div class="stat-body">
+            <span class="stat-value" id="statFavs">0</span>
+            <span class="stat-label">Избранных</span>
+          </div>
+        </div>
+        <div class="card stat-card">
+          <div class="stat-icon stat-icon-green">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          <div class="stat-body">
+            <span class="stat-value" id="statMsgs">0</span>
+            <span class="stat-label">Писем</span>
+          </div>
+        </div>
+
+        <!-- Quick Create -->
+        <div class="card quick-card">
+          <div class="quick-title">Быстрое создание</div>
+          <div class="quick-btns">
+            <button class="btn btn-primary" onclick="addAccount()">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14"/><path d="M5 12h14"/></svg>
+              Случайная
+            </button>
+            <button class="btn btn-templ" onclick="quickTemplate('steam')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 10h4M8 8v4M14 10h4M16 8v4"/><circle cx="13" cy="14" r="2"/><circle cx="7" cy="14" r="2"/></svg> Steam</button>
+            <button class="btn btn-templ" onclick="quickTemplate('epic')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15 9 22 9 16 14 18 21 12 17 6 21 8 14 2 9 9 9"/></svg> Epic</button>
+            <button class="btn btn-templ" onclick="quickTemplate('discord')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg> Discord</button>
+            <button class="btn btn-templ" onclick="quickTemplate('github')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg> GitHub</button>
+            <button class="btn btn-templ" onclick="quickTemplate('twitter')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/></svg> Twitter</button>
+            <button class="btn btn-templ" onclick="quickTemplate('reddit')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9 14s1.5 2 3 2 3-2 3-2"/></svg> Reddit</button>
+            <button class="btn btn-templ" onclick="quickTemplate('amazon')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 002 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/></svg> Amazon</button>
+            <button class="btn btn-templ" onclick="customTemplate()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg> Свой</button>
+          </div>
+          <div class="quick-row" style="margin-top:10px">
+            <select class="select" id="homeDomain">
+              <option value="">Любой домен</option>
+            </select>
+            <button class="btn btn-secondary" onclick="showInputModal('Свой префикс','Введите префикс для email', '', v => { if(v!==null) quickTemplate(v.replace(/[^a-zA-Z0-9_-]/g,'')||'') })">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+              Свой префикс
+            </button>
+            <button class="btn btn-primary" onclick="steamOneClick()">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v8"/><path d="M8 12h8"/></svg>
+              Steam + Почта
+            </button>
+          </div>
+        </div>
+
+        <!-- Recent -->
+        <div class="card recent-card">
+          <div class="quick-title">Недавние аккаунты</div>
+          <div class="recent-list" id="recentList">
+            <div class="recent-empty">Пока нет аккаунтов</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ PAGE: INBOX ============ -->
+    <div class="page" id="page-inbox">
+      <div class="inbox-layout">
+        <!-- Email Card -->
+        <section class="email-card" id="emailCard">
+          <div class="email-card-left">
+            <div class="email-label">
+              Текущий адрес
+              <button class="star-btn" id="starBtn" onclick="toggleFavoriteCurrent()" title="Избранное">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              </button>
+            </div>
+            <div class="email-row">
+              <span class="email-addr" id="emailAddress">—</span>
+              <button class="btn-icon" id="copyBtn" onclick="copyEmail()" title="Копировать">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              </button>
+            </div>
+            <div class="email-meta">
+              <span class="meta-item" id="passwordDisplay">Пароль: —</span>
+              <span class="meta-sep">|</span>
+              <span class="meta-item" id="lifetimeDisplay">—</span>
+            </div>
+          </div>
+          <div class="email-card-right">
+            <button class="btn btn-ghost" id="deleteBtn" onclick="removeCurrentAccount()" disabled>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+              Удалить
+            </button>
+          </div>
+        </section>
+
+        <!-- Create Row -->
+        <div class="create-row">
+          <div class="create-row-left">
+            <select class="select" id="inboxDomain">
+              <option value="">Домен...</option>
+            </select>
+            <select class="select" id="inboxTemplate" onchange="onTemplateChange(this)">
+              <option value="">Без шаблона</option>
+              <option value="steam">Steam</option>
+              <option value="epic">Epic</option>
+              <option value="discord">Discord</option>
+              <option value="twitter">Twitter</option>
+              <option value="github">GitHub</option>
+              <option value="reddit">Reddit</option>
+              <option value="amazon">Amazon</option>
+              <option value="custom">Свой...</option>
+            </select>
+          </div>
+          <div class="create-row-right">
+            <button class="btn btn-primary" id="inboxCreateBtn" onclick="createFromInbox()">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14"/><path d="M5 12h14"/></svg>
+              Создать
+            </button>
+          </div>
+        </div>
+
+        <!-- Messages -->
+        <section class="messages-section">
+          <div class="messages-header">
+            <h2 class="section-title">Входящие</h2>
+            <span class="msg-count" id="msgCount">0</span>
+          </div>
+          <div class="messages-split">
+            <div class="messages-list" id="messagesList">
+              <div class="empty-state">
+                <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                <p>Выберите аккаунт слева,<br>чтобы видеть письма</p>
+              </div>
+            </div>
+
+            <div class="message-preview" id="messagePreview" oncontextmenu="return false">
+              <div class="empty-state" id="previewEmpty">
+                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                <p>Выберите письмо</p>
+              </div>
+              <div class="preview-content" id="previewContent" style="display:none">
+                <div class="preview-header">
+                  <div class="preview-from"><span class="preview-label">От:</span> <span id="previewFrom"></span></div>
+                  <div class="preview-subject" id="previewSubject"></div>
+                  <div class="preview-time" id="previewTime"></div>
+                </div>
+                <div class="preview-body" id="previewBody"></div>
+                <div class="attachments" id="attachmentsArea" style="display:none">
+                  <div class="attachments-title">Вложения</div>
+                  <div class="attachments-list" id="attachmentsList"></div>
+                </div>
+                <div class="preview-actions">
+                  <button class="btn btn-small" onclick="exportMessage('txt')">TXT</button>
+                  <button class="btn btn-small" onclick="exportMessage('html')">HTML</button>
+                  <button class="btn btn-small" onclick="copyPreviewText()">Копировать</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <!-- ============ PAGE: SETTINGS ============ -->
+    <div class="page" id="page-settings">
+      <div class="settings-layout">
+        <h2 class="section-title" style="margin-bottom:16px">Настройки</h2>
+
+        <div class="card settings-card">
+          <div class="settings-group">
+            <div class="settings-row">
+              <span class="settings-label">Тема</span>
+              <div class="settings-control">
+                <select class="select" id="themeSelect" onchange="switchTheme(this.value)">
+                  <option value="dark">Dark</option>
+                  <option value="light">Light</option>
+                  <option value="cmd">CMD</option>
+                  <option value="midnight">Midnight</option>
+                  <option value="cyber">Cyber</option>
+                  <option value="nord">Nord</option>
+                  <option value="sunset">Sunset</option>
+                  <option value="mono">Mono</option>
+                </select>
+              </div>
+            </div>
+            <div class="settings-divider"></div>
+            <div class="settings-row">
+              <span class="settings-label">Звук уведомлений</span>
+              <div class="settings-control">
+                <label class="toggle">
+                  <input type="checkbox" id="soundToggle" checked onchange="saveSetting('sound', this.checked)">
+                  <span class="toggle-slider"></span>
+                </label>
+              </div>
+            </div>
+            <div class="settings-divider"></div>
+            <div class="settings-row">
+              <span class="settings-label">Автокопировать email</span>
+              <div class="settings-control">
+                <label class="toggle">
+                  <input type="checkbox" id="autoCopyToggle" checked onchange="saveSetting('auto_copy', this.checked)">
+                  <span class="toggle-slider"></span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card settings-card" style="margin-top:12px">
+          <div class="settings-group">
+            <div class="settings-row">
+              <span class="settings-label">Провайдер</span>
+              <div class="settings-control">
+                <select class="select" id="providerSelect" onchange="saveSetting('provider', this.value)">
+                  <option value="mailtm">Mail.tm</option>
+                  <option value="gmx">GMX.com</option>
+                </select>
+              </div>
+            </div>
+            <div class="settings-divider"></div>
+            <div class="settings-row">
+              <span class="settings-label">CapSolver API ключ</span>
+              <div class="settings-control">
+                <input class="input" type="password" id="capsolverInput" placeholder="CAP-..." onchange="saveSetting('capsolver_key', this.value)">
+              </div>
+            </div>
+            <div class="settings-row" style="margin-top:4px">
+              <span class="settings-hint">Нужен для GMX. Получить: capsolver.com</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card settings-card" style="margin-top:12px">
+          <div class="settings-group">
+            <div class="settings-row">
+              <span class="settings-label">Домен по умолчанию</span>
+              <div class="settings-control">
+                <select class="select" id="defaultDomain" onchange="saveSetting('default_domain', this.value)">
+                  <option value="">Авто</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card settings-card" style="margin-top:12px">
+          <div class="settings-group">
+            <div class="settings-row" style="justify-content:center;gap:16px">
+              <span class="settings-hint">DarkMail v1.0</span>
+              <span class="settings-hint">Mail.tm • GMX</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+  <!-- Modal -->
+  <div class="modal-overlay" id="modalOverlay" onclick="closeModal()">
+    <div class="modal-card" onclick="event.stopPropagation()">
+      <div class="modal-icon" id="modalIcon">
+        <svg id="modalIconWarn" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        <svg id="modalIconEdit" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+      </div>
+      <div class="modal-title" id="modalTitle">Подтверждение</div>
+      <div class="modal-text" id="modalText">Вы уверены?</div>
+      <div class="modal-input-wrap" id="modalInputWrap" style="display:none">
+        <input class="input modal-input" id="modalInput" type="text" placeholder="Введите префикс" autofocus>
+      </div>
+      <div class="modal-actions">
+        <button class="btn" id="modalCancelBtn" onclick="closeModal()">Отмена</button>
+        <button class="btn btn-danger" id="modalConfirmBtn">Удалить</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Context Menu -->
+  <div class="ctx-menu" id="ctxMenu">
+  <div class="ctx-item" onclick="ctxCopySender()">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+    Копировать отправителя
+  </div>
+  <div class="ctx-item ctx-danger" onclick="ctxDeleteMessage()">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+    Удалить письмо
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+<script src="script.js"></script>
+</body>
+</html>

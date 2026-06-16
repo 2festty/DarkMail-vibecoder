@@ -1,0 +1,8 @@
+{
+  "theme": "sunset",
+  "sound": true,
+  "auto_copy": true,
+  "provider": "mailtm",
+  "capsolver_key": "",
+  "default_domain": ""
+}
