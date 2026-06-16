@@ -62,7 +62,6 @@ python app.py
 ```
 darkmail/
 ├── app.py              # Бэкенд на Python (Flask + pywebview)
-├── start.bat           # Запуск на Windows
 ├── settings.json       # Сохранённые настройки
 ├── gui/
 │   ├── index.html      # Трёхстраничный интерфейс
